@@ -1,3 +1,5 @@
+library('dequer')
+
 # U -> Vector of elements cost (element are from 1 to n)
 # S -> Subsets of elements in U
 # s0 -> Starting sequence (vector of zeros and ones that represent which if sequence has this subeset)
@@ -5,23 +7,38 @@
 # objective function
 # tabuSize -> Size of tabu list
 tabuSearch <- function(U, S, s0, objectiveFunction, maxItter = 100000, tabuSize = 1000){
-  tabuList <- list()
+  tabuList <- queue()
   sBest <- s0
   s <- s0
   for(itt in 1:maxItter) {
-    
+    bestCandidate <- s
     for (candindate in generateNeigbourhood(s)){
-      #TODO:
+      if (!elementInList(candindate, tabuList) && objectiveFunction(candindate) > objectiveFunction(bestCandidate)) {
+        bestCandidate <- candindate
+      }
+      
     }
     
-    
+    s <- bestCandidate
     
     if (stoppingCriteria(sBestCandidate,sBest, objectiveFunction)) {
       break
     }
     
+    
+    if (objectiveFunction(bestCandidate) > objectiveFunction(sBest)) {
+      sBest <- bestCandidate
+    }
+    
+    
+    pushback(tabuList, bestCandidate);
+    if (length(tabuList) > tabuSize) {
+      pop(tabuList)
+    }
+    
   }
   
+  return (sBest)
 }
 
 
@@ -46,4 +63,14 @@ generateNeigbourhood <- function (s) {
   }
   
   return (neigbourhood)
+}
+
+# L -> list of vectors
+elementInList <- function(element, L) {
+  for (el in L){
+    if (length(element) == length(el) && all(element == el)){
+      return(TRUE)
+    }
+  }
+  return (FALSE)
 }
