@@ -11,19 +11,25 @@ tabuSearch <- function(U, S, s0, objectiveFunction, maxItter = 100000, tabuSize 
   sBest <- s0
   s <- s0
   for(itt in 1:maxItter) {
-    bestCandidate <- s
-    for (candindate in generateNeigbourhood(s, U, S)){
+    bestCandidate <- 1:length(S)
+    candidates <- generateNeigbourhood(s, U, S)
+    #print(candidates)
+    for (i in 1:length(candidates) ){
+      candindate = candidates[[i]]
       if (!elementInList(candindate, tabuList) && objectiveFunction(candindate) < objectiveFunction(bestCandidate)) {
         bestCandidate <- candindate
       }
       
     }
     
-    s <- bestCandidate
-    
-    if (stoppingCriteria(bestCandidate,sBest, objectiveFunction)) {
+
+    if (stoppingCriteria(bestCandidate,s, objectiveFunction)) {
+      print('Stopped after:')
+      print(itt)
+      
       break
     }
+    s <- bestCandidate
     
     
     if (objectiveFunction(bestCandidate) < objectiveFunction(sBest)) {
