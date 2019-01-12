@@ -22,7 +22,7 @@ calculateCounts = function (n, S_c, S) {
 # S <- list of all subsets
 calculateCost = function (U_costs, U_counts, S_c, S) {
   
-  cost <- 0
+  cost <- 0.0
   n_subsets <- length(S)
   
   for (i in 1:n_subsets) {
@@ -32,7 +32,7 @@ calculateCost = function (U_costs, U_counts, S_c, S) {
     }
   }
   
-  return (cost)
+  return (sum(cost))
 }
 
 # U_costs <- costs of elements
@@ -47,5 +47,5 @@ subsetCost = function (U_costs, U_counts, S_i) {
     cost <- cost + cost_i
   }
   
-  return (cost)
+  return (sum(cost))
 }
