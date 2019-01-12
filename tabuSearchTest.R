@@ -1,5 +1,7 @@
 # imports
 
+setwd('R:/Documents/Github/aahps-assignment-5/')
+
 source('tabuSearch.R')
 source('readFile.R')
 source('subsetCost.R')
@@ -11,11 +13,22 @@ inputData <- readFile('input1.txt')
 U <- inputData[[1]]
 S <- inputData[[2]]
 
-s0 <- generateRandomSolution(length(U), S)
-
 objectiveFunction <- function (s) {
-  return (calculateCost(U, s, length(U), S))
+  counts <- calculateCounts(length(U), s, S)
+  return (sum(calculateCost(U, counts, s, S)))
   
 }
 
-rezTabu <- tabuSearch(U, S, s0, objectiveFunction)
+ponovitve <- 100
+rezultati <- vector(mode="numeric", length=ponovitve)
+
+
+for(i in 1:ponovitve) {
+  s0 <- generateRandomSolution(length(U), S)
+  rezTabu <- tabuSearch(U, S, s0, objectiveFunction, maxItter = 1000, tabuSize = 50)
+  print(which(rezTabu == 1))
+  print(objectiveFunction(rezTabu))
+  rezultati[i] = objectiveFunction(rezTabu)
+}
+
+print(min(rezultati))
