@@ -19,7 +19,7 @@ generateRandomSolution = function(n, S) {
       
       #mark all elements in this subset as used
       for(ix in S[[i]]) {
-        U[i] <- 1
+        U[ix] <- 1
       }
     }
   }
