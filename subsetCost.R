@@ -11,8 +11,8 @@ calculateCost = function (U_costs, S_c, n, S) {
   for (i in 1:n_subsets) {
     if (S_c[i]) {
       ret <- subsetCost(U_costs, U_counts, S[i])
-      cost <- cost + ret[1]
-      U_counts <- ret[2]
+      cost <- cost + ret[[1]]
+      U_counts <- ret[[2]]
     }
   }
   
@@ -33,8 +33,8 @@ subsetCost = function (U_costs, U_counts, S_i) {
   }
   
   ret = list()
-  ret[1] <- cost
-  ret[2] <- U_counts
+  ret[[1]] <- cost
+  ret[[2]] <- U_counts
   
   return (ret)
 }
