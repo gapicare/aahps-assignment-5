@@ -1,4 +1,5 @@
-readFile = function(filename) {
+# filename <- filename of a file to be read
+readFile = function (filename) {
   # open a file for reading
   f = file(filename, open = "r")
   
@@ -9,9 +10,9 @@ readFile = function(filename) {
   # read other lines
   S = list();
   i <- 1
-  while(TRUE) {
+  while (TRUE) {
     line = readLines(f, n = 1)
-    if(length(line) == 0) {
+    if (length(line) == 0) {
       break
     }
     values = as.numeric(unlist(strsplit(line, split = ", ")))
@@ -24,5 +25,5 @@ readFile = function(filename) {
   input = list()
   input[[1]] <- U_costs
   input[[2]] <- S
-  input
+  return (input)
 }

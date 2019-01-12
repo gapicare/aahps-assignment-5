@@ -1,7 +1,7 @@
 # U_costs -> costs of elements
 # S_0 -> initial solution
 # S -> list of all subsets
-localSearch = function (U_costs, S_0, S) {
+localSearch <- function (U_costs, S_0, S) {
   
   n_elements <- length(U_costs)
   n_subsets <- length(S_0)
@@ -49,6 +49,8 @@ localSearch = function (U_costs, S_0, S) {
 # numRuns <- number of runs of localSearch algorithm (default = 1000)
 runLocalSearch <- function(filename, numRuns = 100) {
   
+  start_time <- Sys.time()
+  
   input <- readFile(filename)
   U_costs <- input[[1]]
   S <- input[[2]]
@@ -68,8 +70,14 @@ runLocalSearch <- function(filename, numRuns = 100) {
   ixBest <- which.min(costs)
   
   print(costs[ixBest])
+  
+  end_time <- Sys.time()
+  
+  print(end_time - start_time)
   #bestSolution = list()
   #bestSolution[[1]] <- costs[ixBest]
   #bestSolution[[2]] < solutions[[ixBest]]
   #return (bestSolution)
+  
+  return (costs[ixBest])
 }
