@@ -68,14 +68,16 @@ runLocalSearch <- function(filename, numRuns = 100) {
   }
   
   ixBest <- which.min(costs)
+  chosenIndexes <- solutions[[ixBest]] * (1:length(solutions[[ixBest]]))
+  chosenIndexes <- chosenIndexes[chosenIndexes != 0]
   
   print(costs[ixBest])
-  print(solutions[[ixBest]])
+  print(chosenIndexes)
   
   end_time <- Sys.time()
   
   print(end_time - start_time)
   
-  result <- list(costs[ixBest], solutions[[ixBest]])
+  result <- list(costs[ixBest], chosenIndexes)
   return (result)
 }
