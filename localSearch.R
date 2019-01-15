@@ -70,14 +70,12 @@ runLocalSearch <- function(filename, numRuns = 100) {
   ixBest <- which.min(costs)
   
   print(costs[ixBest])
+  print(solutions[[ixBest]])
   
   end_time <- Sys.time()
   
   print(end_time - start_time)
-  #bestSolution = list()
-  #bestSolution[[1]] <- costs[ixBest]
-  #bestSolution[[2]] < solutions[[ixBest]]
-  #return (bestSolution)
   
-  return (costs[ixBest])
+  result <- list(costs[ixBest], solutions[[ixBest]])
+  return (result)
 }
