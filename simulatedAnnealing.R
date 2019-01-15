@@ -4,9 +4,9 @@
 # T <- temperature
 # lambda <- lambda factor
 # maxIter <- maximum number of iterations
-simulatedAnnealing <- function (U_costs, S_0, S, T = 100, lambda = 0.95, maxIter = 10) {
+simulatedAnnealing <- function (U_costs, S_0, S, T = 100, lambda = 0.90, maxIter = 5) {
   
-  set.seed(1)
+  set.seed(Sys.time())
   n_elements <- length(U_costs)
   
   S_temp <- S_0
@@ -37,7 +37,7 @@ simulatedAnnealing <- function (U_costs, S_0, S, T = 100, lambda = 0.95, maxIter
       S_temp <- S_rand
       tempCost <- randCost
     } else {
-      p <- exp(-(randCost - tempCost))
+      p <- exp(-(randCost - tempCost)/T)
       makeMove <- sample(c(0, 1), size = 1, replace = TRUE, prob = c(1-p, p))
       if (makeMove) {
         S_temp <- S_rand
@@ -53,7 +53,7 @@ simulatedAnnealing <- function (U_costs, S_0, S, T = 100, lambda = 0.95, maxIter
 
 # filename <- name of input file
 # numRuns <- number of runs of simmulatedAnnealing algorithm
-runSimulatedAnnealing <- function (filename, numRuns = 20) {
+runSimulatedAnnealing <- function (filename, numRuns = 20, T, lambda, maxIter) {
   
   start_time <- Sys.time()
   
@@ -68,7 +68,7 @@ runSimulatedAnnealing <- function (filename, numRuns = 20) {
     
     S_0 = generateRandomSolution(length(U_costs), S)
     
-    result <- simulatedAnnealing(U_costs, S_0, S)
+    result <- simulatedAnnealing(U_costs, S_0, S, T, lambda, maxIter)
     costs[i] <- result[[1]]
     solutions[[i]] <- result[[2]]
   }

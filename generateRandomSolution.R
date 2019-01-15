@@ -10,7 +10,7 @@ generateRandomSolution = function(n, S) {
   # add a random subset
   while(sum(U) != n) {
     # choose a random subset
-    i <- sample(1:n_subsets, 1)
+    i <- sample(1:n_subsets, size=1, replace=TRUE)
     
     # check if you have not used it before
     if(!added[i]) {

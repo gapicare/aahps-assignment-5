@@ -1,5 +1,5 @@
 # Change to your path
-setwd('R:/Documents/Github/aahps-assignment-5/')
+# setwd("Documents/faks/3.letnik/1.semester/rzhp/aahps-assignment-5/")
 
 source('tabuSearch.R')
 source('readFile.R')
@@ -11,7 +11,10 @@ source('generateRandomSolution.R')
 # S -> list of all subsets
 localSearch <- function (U_costs, S_0, S) {
   
+  # total number of elements
   n_elements <- length(U_costs)
+  
+  # total number of subsets
   n_subsets <- length(S_0)
   
   sBest <- S_0
@@ -47,14 +50,12 @@ localSearch <- function (U_costs, S_0, S) {
     }
   }
   
-  result = list()
-  result[[1]] <- currentCost
-  result[[2]] <- sBest
+  result <- list(currentCost, sBest)
   return (result)
 }
 
 # filename <- name of the input file
-# numRuns <- number of runs of localSearch algorithm (default = 1000)
+# numRuns <- number of runs of localSearch algorithm (default = 100)
 runLocalSearch <- function(filename, numRuns = 100) {
   
   start_time <- Sys.time()

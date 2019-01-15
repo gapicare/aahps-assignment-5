@@ -1,4 +1,4 @@
-library('dequer')
+#library('dequer')
 
 # U -> Vector of elements cost (element are from 1 to n)
 # S -> Subsets of elements in U
