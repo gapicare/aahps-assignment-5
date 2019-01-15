@@ -1,3 +1,11 @@
+# Change to your path
+setwd('R:/Documents/Github/aahps-assignment-5/')
+
+source('tabuSearch.R')
+source('readFile.R')
+source('subsetCost.R')
+source('generateRandomSolution.R')
+
 # U_costs -> costs of elements
 # S_0 -> initial solution
 # S -> list of all subsets
