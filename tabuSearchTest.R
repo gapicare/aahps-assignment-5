@@ -8,27 +8,37 @@ source('subsetCost.R')
 source('generateRandomSolution.R')
 
 
-inputData <- readFile('input1.txt')
-
-U <- inputData[[1]]
-S <- inputData[[2]]
-
 objectiveFunction <- function (s) {
   counts <- calculateCounts(length(U), s, S)
   return (sum(calculateCost(U, counts, s, S)))
   
 }
 
-ponovitve <- 100
-rezultati <- vector(mode="numeric", length=ponovitve)
+ponovitve <- 10
 
 
-for(i in 1:ponovitve) {
-  s0 <- generateRandomSolution(length(U), S)
-  rezTabu <- tabuSearch(U, S, s0, objectiveFunction, maxItter = 1000, tabuSize = 50)
-  print(which(rezTabu == 1))
-  print(objectiveFunction(rezTabu))
-  rezultati[i] = objectiveFunction(rezTabu)
+
+name_files <- c("input1.txt", "input2.txt", "input3.txt", "input4.txt", "input5.txt", "input6.txt", "input7.txt", "input8.txt", "input9.txt", "input10.txt")
+for (file_name in name_files) {
+  inputData <- readFile(file_name)
+  
+  U <- inputData[[1]]
+  S <- inputData[[2]]
+  rezultati <- vector(mode="numeric", length=ponovitve)
+  rez_index <- 0
+  min_rez = 100000000000
+  
+  for(i in 1:ponovitve) {
+    s0 <- generateRandomSolution(length(U), S)
+    rezTabu <- tabuSearch(U, S, s0, objectiveFunction, maxItter = 1000, tabuSize = 500)
+    #print(which(rezTabu == 1))
+    #print(objectiveFunction(rezTabu))
+    if (objectiveFunction(rezTabu) < min_rez) {
+      min_rez <- objectiveFunction(rezTabu)
+      rez_index <- which(rezTabu == 1)
+    }
+  }
+
+  print(min_rez)
+  print(rez_index)
 }
-
-print(min(rezultati))
